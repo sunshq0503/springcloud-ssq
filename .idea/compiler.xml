@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ssq-product" />
+        <module name="ssq-eureka" />
+        <module name="ssq-wallet" />
+        <module name="ssq-ucenter" />
+        <module name="ssq-order" />
+        <module name="ssq-gateway" />
+        <module name="ssq-commons" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ssq-commons" options="-parameters" />
+      <module name="ssq-eureka" options="-parameters" />
+      <module name="ssq-gateway" options="-parameters" />
+      <module name="ssq-order" options="-parameters" />
+      <module name="ssq-product" options="-parameters" />
+      <module name="ssq-ucenter" options="-parameters" />
+      <module name="ssq-wallet" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssq.product.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.ssq.commons.entity.Product">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="BIGINT" property="price" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+  </resultMap>
+  <insert id="insertBy3Params"  useGeneratedKeys="true" keyProperty="id">
+    insert into `product`(`name`, `price`, `number`)
+    values (#{name},#{price},#{number})
+  </insert>
+
+  <update id="updateById">
+    update `product` set `number` = `number` + #{product}.number
+    where `id` = #{product}.id
+  </update>
+
+  <select id="selectByName" resultType="com.ssq.commons.entity.Product">
+    select * from `product`
+    where `name` = #{name}
+  </select>
+</mapper>
