@@ -29,6 +29,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--快重启-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -44,7 +50,14 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>0.9.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>0.9.0.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -74,6 +87,20 @@
             <version>1.1.9</version>
         </dependency>
 
+        <!-- druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+
+        <!--自启动Druid管理后台-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
@@ -99,46 +126,32 @@
         </dependency>
 
         <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>${basedir}/src/main/java</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
-                </configuration>
-            </plugin>
 
+            <!--mybaits逆向工程-->
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.6</version>
                 <configuration>
-                    <configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
-                    <overwrite>true</overwrite>
                     <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                    <configurationFile>${basedir}/src/main/resources/generator/generator.xml</configurationFile>
                 </configuration>
                 <dependencies>
                     <!-- 引入数据库连接依赖 -->
@@ -153,11 +166,6 @@
                         <artifactId>mapper-generator</artifactId>
                         <version>1.1.5</version>
                     </dependency>
-                    <!--<dependency>-->
-                    <!--<groupId>org.postgresql</groupId>-->
-                    <!--<artifactId>postgresql</artifactId>-->
-                    <!--<version>9.4-1206-jdbc42</version>-->
-                    <!--</dependency>-->
                 </dependencies>
             </plugin>
         </plugins>

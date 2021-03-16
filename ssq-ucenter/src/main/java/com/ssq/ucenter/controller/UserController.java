@@ -1,5 +1,7 @@
 package com.ssq.ucenter.controller;
 
+import com.ssq.commons.enums.IdentityType;
+import com.ssq.commons.enums.ResultCode;
 import com.ssq.commons.response.Result;
 import com.ssq.ucenter.model.request.*;
 import com.ssq.ucenter.service.MailService;
@@ -52,7 +54,11 @@ public class UserController {
     @RequestMapping("/forgetPwd")
     public Result forgetPwd(@RequestBody ForgetPwdRequest request){
         Result result = userService.forgetPwd(request);
-        mailService.sendSimpleMail(request.getIdentifier(),"邮箱登录密码重置验证码",((HashMap)result.getData()).get("verifyCode").toString());
+        if(result.getStatus() == ResultCode.SUCCESS.getCode()){
+            if(request.getIdentityType() == IdentityType.EMAIL_PASSWORD.getCode()){
+                mailService.sendSimpleMail(request.getIdentifier(),"邮箱登录密码重置验证码",((HashMap)result.getData()).get("verifyCode").toString());
+            }
+        }
         return result;
     }
 

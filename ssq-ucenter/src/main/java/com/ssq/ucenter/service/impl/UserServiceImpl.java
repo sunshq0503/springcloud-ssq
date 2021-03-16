@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
         userAuth.setLoginCount(userAuth.getLoginCount()+1);
         userAuthMapper.updateByPrimaryKey(userAuth);
 
-        User user = userMapper.selectByPrimaryKey(uid);
+        User user = userMapper.selectById(uid);
         response.setUaid(userAuth.getId());
         response.setUid(uid);
         response.setNickName(user.getNickname());
