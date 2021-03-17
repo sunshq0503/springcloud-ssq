@@ -3,14 +3,14 @@ package com.ssq.order.service.Impl;
 import com.ssq.commons.constant.ParamConstant;
 import com.ssq.commons.entity.Product;
 import com.ssq.commons.enums.ResultCode;
+import com.ssq.commons.feign.ProductFeign;
+import com.ssq.commons.feign.WalletFeign;
 import com.ssq.commons.response.Result;
 import com.ssq.commons.utils.JsonUtil;
 import com.ssq.order.dao.OrderDetailMapper;
 import com.ssq.order.dao.OrderMapper;
 import com.ssq.order.entity.Order;
 import com.ssq.order.entity.OrderDetail;
-import com.ssq.order.feign.ProductFeign;
-import com.ssq.order.feign.WalletFeign;
 import com.ssq.order.model.CreateRequest;
 import com.ssq.order.model.mongo.OrderLog;
 import com.ssq.order.service.OrderService;
@@ -49,7 +49,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Result create(CreateRequest request) {
         Integer productId = request.getProductId();
-        Product product = productFeign.SelectByProductId(productId);
+        Result result = productFeign.SelectByProductId(productId);
+        Product product = (Product) result.getData();
         if(product == null){
             return Result.error("产品信息不存在");
         }
@@ -62,7 +63,8 @@ public class OrderServiceImpl implements OrderService {
         HttpServletRequest _request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String userId = _request.getHeader(ParamConstant.HEAD_USER_ID);
 
-        Long balance = walletFeign.getBalance(userId);
+        result = walletFeign.getBalance(userId);
+        Long balance = (Long)result.getData();
         if(balance < payment){
             return Result.error("钱包余额不足");
         }
@@ -85,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
         orderDetailMapper.insert(orderDetail);
 
         //扣款
-        Result result = walletFeign.expenditure(userId,payment);
+        result = walletFeign.expenditure(userId,payment);
         if(result.getStatus() != ResultCode.SUCCESS.getCode()){
             throw new RuntimeException("用户钱包异常");
         }

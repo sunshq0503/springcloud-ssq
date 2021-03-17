@@ -1,8 +1,6 @@
 package com.ssq.order.controller;
 
-import com.ssq.commons.entity.Product;
 import com.ssq.commons.response.Result;
-import com.ssq.order.feign.ProductFeign;
 import com.ssq.order.model.CreateRequest;
 import com.ssq.order.service.OrderService;
 import io.swagger.annotations.Api;
