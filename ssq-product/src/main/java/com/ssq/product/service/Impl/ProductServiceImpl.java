@@ -70,9 +70,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product SelectByProductId(Integer productId) {
+    public Result SelectByProductId(Integer productId) {
         Product product = productMapper.selectByPrimaryKey(productId);
-        log.info("product:",product);
-        return product;
+        return Result.ok(product);
     }
 }

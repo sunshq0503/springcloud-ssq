@@ -8,5 +8,5 @@ import com.ssq.product.model.OutboundRequest;
 public interface ProductService {
     Result Inbound(InboundRequest request);
     Result Outbound(OutboundRequest request);
-    Product SelectByProductId(Integer productId);
+    Result SelectByProductId(Integer productId);
 }
