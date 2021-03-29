@@ -50,6 +50,7 @@ public class OrderServiceImpl implements OrderService {
     public Result create(CreateRequest request) {
         Integer productId = request.getProductId();
         Result result = productFeign.SelectByProductId(productId);
+        log.info("result:",result);
         Product product = (Product) result.getData();
         if(product == null){
             return Result.error("产品信息不存在");
