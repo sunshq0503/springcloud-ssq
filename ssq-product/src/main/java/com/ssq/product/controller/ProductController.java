@@ -34,9 +34,9 @@ public class ProductController {
         return productService.Outbound(request);
     }
 
-    @ApiOperation(value = "通过ID查询产品信息", httpMethod = "GET", produces="application/json")
-    @RequestMapping("/selectByProductId/{productId}")
-    public Result outbound(@PathVariable Integer productId){
+    @ApiOperation(value = "通过ID查询产品信息", httpMethod = "GET")
+    @RequestMapping(value="/selectByProductId/{productId}", produces="application/json")
+    public Result selectByProductId(@PathVariable Integer productId){
         return productService.SelectByProductId(productId);
     }
 
