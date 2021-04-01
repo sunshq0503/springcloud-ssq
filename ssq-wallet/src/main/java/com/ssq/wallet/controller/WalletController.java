@@ -44,7 +44,7 @@ public class WalletController {
 
     @ApiOperation(value = "查询余额", httpMethod = "GET")
     @RequestMapping("/getBalance/{userId}")
-    Long getBalance(@PathVariable String userId){
+    Result getBalance(@PathVariable String userId){
         return walletService.getBalance(userId);
     }
 

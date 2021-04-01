@@ -1,5 +1,7 @@
 package com.ssq.order.service.Impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.ssq.commons.constant.ParamConstant;
 import com.ssq.commons.entity.Product;
 import com.ssq.commons.enums.ResultCode;
@@ -50,8 +52,8 @@ public class OrderServiceImpl implements OrderService {
     public Result create(CreateRequest request) {
         Integer productId = request.getProductId();
         Result result = productFeign.SelectByProductId(productId);
-        log.info("result:",result);
-        Product product = (Product) result.getData();
+        ObjectMapper mapper = new ObjectMapper();
+        Product product = mapper.convertValue(result.getData(), new TypeReference<Product>() { });
         if(product == null){
             return Result.error("产品信息不存在");
         }
@@ -65,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
         String userId = _request.getHeader(ParamConstant.HEAD_USER_ID);
 
         result = walletFeign.getBalance(userId);
-        Long balance = (Long)result.getData();
+        Long balance = mapper.convertValue(result.getData(), new TypeReference<Long>() { });
         if(balance < payment){
             return Result.error("钱包余额不足");
         }

@@ -8,6 +8,7 @@ class SsqWalletApplicationTests {
 
     @Test
     void contextLoads() {
+       
     }
 
 }

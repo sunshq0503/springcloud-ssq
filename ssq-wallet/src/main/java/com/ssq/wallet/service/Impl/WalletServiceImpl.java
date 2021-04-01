@@ -68,11 +68,11 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public Long getBalance(String userId) {
+    public Result getBalance(String userId) {
         Wallet wallet = walletMapper.selectByUserId(userId);
         if(wallet == null){
-            return 0L;
+            return Result.ok(0L);
         }
-        return wallet.getBalance();
+        return Result.ok(wallet.getBalance());
     }
 }

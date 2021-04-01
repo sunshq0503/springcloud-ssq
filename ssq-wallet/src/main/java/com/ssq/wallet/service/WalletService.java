@@ -7,5 +7,5 @@ public interface WalletService {
     Result expenditure(String userId,Long amount);
     Result create();
     Result select();
-    Long getBalance(String userId);
+    Result getBalance(String userId);
 }
