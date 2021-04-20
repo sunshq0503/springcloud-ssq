@@ -77,7 +77,7 @@ public class UserController {
     @ApiOperation(value = "测试", httpMethod = "GET")
     @RequestMapping("/hello")
     public Result hello(){
-        return Result.ok("hello user333");
+        return Result.ok("hello user123");
     }
 
     @ApiOperation(value = "超时", httpMethod = "GET")
