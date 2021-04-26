@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class WalletController {
+    @LocalServerPort
+    private String port ;
+
     @Autowired
     WalletService walletService;
 
@@ -46,6 +50,12 @@ public class WalletController {
     @RequestMapping("/getBalance/{userId}")
     Result getBalance(@PathVariable String userId){
         return walletService.getBalance(userId);
+    }
+
+    @ApiOperation(value = "测试", httpMethod = "GET")
+    @RequestMapping("/test")
+    public Result test(){
+        return Result.ok("测试"+port);
     }
 
 
