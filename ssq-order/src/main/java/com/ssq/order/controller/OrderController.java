@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class OrderController {
+    @Value("${server.port}")
+    private String port ;
+
     @Autowired
     OrderService orderService;
 
@@ -25,10 +29,16 @@ public class OrderController {
         return orderService.create(request);
     }
 
-    @ApiOperation(value = "feign测试", httpMethod = "GET")
-    @RequestMapping("/test")
-    public Result test() {
+    @ApiOperation(value = "feign", httpMethod = "GET")
+    @RequestMapping("/feign")
+    public Result feign() {
         return orderService.test();
+    }
+
+    @ApiOperation(value = "测试", httpMethod = "GET")
+    @RequestMapping("/test")
+    public Result test(){
+        return Result.ok("测试"+port);
     }
 
 
