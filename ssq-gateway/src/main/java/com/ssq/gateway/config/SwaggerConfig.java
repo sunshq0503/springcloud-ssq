@@ -1,5 +1,6 @@
 package com.ssq.gateway.config;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,19 +16,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Value(value = "${spring.swagger2.enabled}")
-    private Boolean swaggerEnabled;
-
-    @Value(value = "${package.name}")
-    private String basePackageName;
-
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .enable(swaggerEnabled)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(basePackageName))
+                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build();
     }
